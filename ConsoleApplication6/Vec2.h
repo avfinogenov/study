@@ -5,5 +5,6 @@ public:
 	float x;
 	float y;
 	Vec2(float x_in, float y_in);
+	Vec2() = default;
 };
 

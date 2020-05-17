@@ -12,6 +12,7 @@ void DrawLine(HDC& hdc, Vec2 startpos, Vec2 endpos);
 float FindMax(float x1, float x2);
 float FindMin(float x1, float x2);
 float GetLength(float x1, float x2);
+Vec2 RotateV(Vec2 startpos, float radius, float angle);
 int main()
 {
 	InitCircles();
@@ -34,17 +35,18 @@ int main()
 	//Circle* pc;
 	//pc = &c1;
 
-
+	Vec2 startpos = Vec2(50, 50);
+	float r = 10;
 	float alpha = 0;
 	//float delta=0;
 	while (true)
 	{
-		DrawLine(hdc, Vec2(10, 10), Vec2(50, 10));
+		DrawLine(hdc, startpos, RotateV(startpos,r,alpha));
 		//DrawLine(hdc, Vec2(500, 50),30, 0,0);
 		//DrawSquare(hdc);
 		
 		//RotateSquare(hdc, Vec2(500, 50), 30, 0,alpha, 50);
-		//alpha += 0.1;
+		alpha += 0.1;
 		
 		//for (int i = 0; i < 4; i++)
 		//{
@@ -148,16 +150,18 @@ void RotateSquare(HDC& hdc, Vec2 pos, int length,float angleHor, float angleD, i
 
 void DrawLine(HDC& hdc,Vec2 startpos, Vec2 endpos)
 {
-	float lx = GetLength(endpos.x,startpos.x);
+	float lx = GetLength(endpos.x, startpos.x);
 	float ly = GetLength(endpos.y, startpos.x);
 	float length = FindMax(lx, ly);
-	
+	int signx = (endpos.x - startpos.x) / abs(endpos.x - startpos.x);
+	int signy = (endpos.y - startpos.y) / abs(endpos.y - startpos.y);
 	if (lx > ly)
 	{
+
 		float yi = ly / lx;
 		for (int i = 0; i < length; i++)
 		{
-			SetPixel(hdc, startpos.x+i, startpos.y+i*yi, RGB(255, 255, 255));
+			SetPixel(hdc, startpos.x + i * signx, startpos.y + i * yi * signy, RGB(255, 255, 255));
 		}
 	}
 	else
@@ -165,10 +169,24 @@ void DrawLine(HDC& hdc,Vec2 startpos, Vec2 endpos)
 		float xi = lx / ly;
 		for (int i = 0; i < length; i++)
 		{
-			SetPixel(hdc, startpos.x + i*xi, startpos.y + i, RGB(255, 255, 255));
+			SetPixel(hdc, startpos.x + i * xi * signx, startpos.y + i * signy, RGB(255, 255, 255));
 		}
 	}
+
 	
+	
+	
+}
+Vec2 RotateV(Vec2 startpos, float radius, float angle)
+{
+	Vec2 endpos;
+	float tmp = 3.14 / 2;
+	endpos.x = startpos.x + radius * cos(angle);
+	endpos.y = startpos.y + radius * cos(tmp+angle);
+	return endpos;
+	//центр, радиус орбиты
+	
+
 }
 
 float FindMax(float x1, float x2)
