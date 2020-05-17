@@ -13,6 +13,7 @@ float FindMax(float x1, float x2);
 float FindMin(float x1, float x2);
 float GetLength(float x1, float x2);
 Vec2 RotateV(Vec2 startpos, float radius, float angle);
+void DrawSquare(HDC& hdc);
 int main()
 {
 	InitCircles();
@@ -35,29 +36,30 @@ int main()
 	//Circle* pc;
 	//pc = &c1;
 
-	Vec2 startpos = Vec2(50, 50);
-	float r = 10;
+	Vec2 startpos = Vec2(150, 150);
+	float r = 50;
 	float alpha = 0;
 	//float delta=0;
 	while (true)
 	{
-		DrawLine(hdc, startpos, RotateV(startpos,r,alpha));
+		//DrawLine(hdc, startpos, RotateV(startpos,r,alpha));
 		//DrawLine(hdc, Vec2(500, 50),30, 0,0);
+		//DrawSquare(hdc);
 		//DrawSquare(hdc);
 		
 		//RotateSquare(hdc, Vec2(500, 50), 30, 0,alpha, 50);
 		alpha += 0.1;
 		
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	c[i].DrawCircle(hdc);
-		//	c[i].DrawInsideCircle(hdc);
-		//	c[i].Update();
-		//}
-		//sattelite.PlaceCenter(c[3]);
-		//sattelite.DrawCircle(hdc);
-		//sattelite.DrawInsideCircle(hdc);
-		//sattelite.Update();
+			//for (int i = 0; i < 4; i++)
+			//{
+			//	c[i].DrawCircle(hdc);
+			//	c[i].DrawInsideCircle(hdc);
+			//	c[i].Update();
+			//}
+			//sattelite.PlaceCenter(c[3]);
+			//sattelite.DrawCircle(hdc);
+			//sattelite.DrawInsideCircle(hdc);
+			//sattelite.Update();
 		Sleep(100);
 		system("cls");
 		//delta += 0.30;
@@ -188,7 +190,18 @@ Vec2 RotateV(Vec2 startpos, float radius, float angle)
 	
 
 }
-
+void DrawSquare(HDC& hdc)
+{
+	Vec2 a[2][2];
+	a[0][0] = Vec2(50, 50);
+	a[0][1] = Vec2(50, 100);
+	a[1][0] = Vec2(100, 50);
+	a[1][1] = Vec2(100, 100);
+	DrawLine(hdc, a[0][0], a[0][1]);
+	DrawLine(hdc, a[0][0], a[1][0]);
+	DrawLine(hdc, a[1][0], a[1][1]);
+	DrawLine(hdc, a[0][1], a[1][1]);
+}
 float FindMax(float x1, float x2)
 {
 	if (x1 > x2)
