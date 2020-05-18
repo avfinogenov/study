@@ -14,8 +14,11 @@ float FindMin(float x1, float x2);
 float GetLength(float x1, float x2);
 Vec2 RotateV(Vec2 startpos, float radius, float angle);
 void DrawSquare(HDC& hdc);
+int Sum(int* p, int w);
+void Reverse(int* p, int size);
 int main()
 {
+	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
 	InitCircles();
 	//Circle c1 = Circle(100, 30);
 
@@ -25,7 +28,9 @@ int main()
 	//c1.angle = 0.10;
 	HWND hwnd = GetConsoleWindow();
 	HDC hdc = GetDC(hwnd);
-
+	std::cout << Sum(arr, sizeof(arr));
+	Reverse(arr, 10);
+	int tmp = 0;
 	//int x = 0;
 	//for (float i = 0; i < 3.14 * 10; i += 0.05)
 	//{
@@ -61,7 +66,7 @@ int main()
 			//sattelite.DrawInsideCircle(hdc);
 			//sattelite.Update();
 		Sleep(100);
-		system("cls");
+		//system("cls");
 		//delta += 0.30;
 	}
 
@@ -229,4 +234,30 @@ float FindMin(float x1, float x2)
 float GetLength(float x1, float x2)
 {
 	return abs(x2 - x1);
+}
+
+int Sum(int* p, int w)
+{
+	int s = 0;
+	w = w / 4;
+	int* e = p+w;
+	//int tmp = sizeof(p);
+	for (; p <e; p++)
+	{
+		s +=*p;
+	}
+	return s;
+}
+void Reverse(int* p, int size)
+{
+	int tmp;
+	int* e = p + size;
+	for (; p <  e;p++)
+	{
+		e--;
+		tmp = *p;
+		*p =*e ;
+		*e = tmp;
+		
+	}
 }
