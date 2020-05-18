@@ -2,6 +2,7 @@
 #include "Vec2.h"
 #include <algorithm>
 
+using namespace std;
 Circle c[4];
 Circle sattelite;
 void InitCircles();
@@ -21,6 +22,39 @@ int main()
 	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
 	InitCircles();
 	//Circle c1 = Circle(100, 30);
+
+	int* p;
+	int x = 10;
+	p = &x;
+	(*p)--;
+	std::cout << *p;
+	std::cout << std::endl;
+
+	Circle* pc;
+	pc = &c[1];
+	pc->ro = 10;
+	std::cout << pc->ro;
+
+
+
+
+
+
+
+	Sleep(100000);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	//c1.Xpos = 100;
 	//c1.Ypos = 100;
