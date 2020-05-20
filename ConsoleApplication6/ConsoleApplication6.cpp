@@ -18,7 +18,7 @@ void read(char* buff, int size);
 int Str2int(char* s);
 int fibon(int n);
 void int2str(int n, char* buff, int size);
-
+void SaveF(const char* pc, Test* t_in, int size, int count);
 void LoadF(const char* pc, Test* t_in, int size);
 void SetName(Test* pt, char* buff_in, int size, int number);
 int main()
@@ -33,26 +33,28 @@ int main()
 	do
 	
 	{
-		Print("(l)oad (s)ave (a)dd (q)uit or (p)rint");
+		Print("(l)oad (s)ave (a)dd (q)uit or (p)rint\n");
 		switch (menuswitch=_getch())
 		{
 		case 'l':
 		{
-			Print("\nEnter file name: ");
+			Print("\nEnter file name: \n");
 			read(buff, 100);
-			//LoadF(buff);
+			LoadF(buff, t, 100);
 			break;
 		}
 		case 's':
-		{
+		{Print("\nEnter file name: \n");
+		read(buff, 100);
+		SaveF(buff, t, 100, count);
 			break;
 		}
 		case 'a':
 		{
-			Print("enter name: ");
+			Print("enter name: \n");
 			read(buff, 100);
 			SetName(t, buff, 100, count);
-			Print("enter number: ");
+			Print("enter number: \n");
 			read(buff, 100);
 			t[count].number = Str2int(buff);
 			count++;
@@ -98,7 +100,7 @@ void SetName(Test* pt, char* buff_in, int size, int number)
 }
 void LoadF(const char* pc, Test* t_in, int size)
 {
-	ifstream inFile(pc);
+	ifstream inFile(pc, ios::binary);
 	if (!inFile)
 	{
 		Print("error");
@@ -112,20 +114,25 @@ void LoadF(const char* pc, Test* t_in, int size)
 		}
 	}
 }
-void SaveF(const char* pc, Test* t_in, int size)
+void SaveF(const char* pc, Test* t_in, int size, int count)
 {
-	ofstream inFile(pc);
+	ofstream inFile(pc, ios::binary);
 	if (!inFile)
 	{
 		Print("error");
 	}
 	else
 	{
+	
 		Test* tmp = t_in + size;
-	//	for (; (t_in < tmp) && ; t_in++)
-	//	{
-	//		inFile.write((char*)t_in, sizeof(Test));
-	//	}
+
+		//for (;t_in<tmp;t_in++)
+
+		for (; (t_in < tmp) &&count>=0 ; t_in++)
+		{
+			inFile.write((char*)t_in, sizeof(Test));
+			count--;
+		}
 	}
 }
 
