@@ -14,44 +14,7 @@ int fibon(int n);
 void int2str(int n, char* buff, int size);
 int main()
 {
-	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
-	InitCircles();
-	//Circle c1 = Circle(100, 30);
 	
-	int* p;
-	int x = 10;
-	p = &x;
-	(*p)--;
-	std::cout << *p;
-	std::cout << std::endl;
-
-	Circle* pc;
-	pc = &c[1];
-	pc->ro = 10;
-	std::cout << pc->ro;
-
-
-	_getch();
-	_putch('s');
-
-
-	char msg[] = "somethig to print!";
-	Print(msg);
-	char cbuf[69];
-	read(cbuf, 69);
-	Print(cbuf);
-	int tmp = Str2int(cbuf);
-	cout << tmp << endl;
-
-	cout << endl;
-	cout << "vvedite chislo fibbonachi";
-	read(cbuf, 69);
-	tmp = Str2int(cbuf);
-	tmp = fibon(tmp);
-	char cbuf2[69];
-	int2str(tmp, cbuf2, 69);
-	Print(cbuf2);
-	//cout << fibon(tmp);
 
 
 
@@ -75,54 +38,12 @@ int main()
 
 
 
-
-	//c1.Xpos = 100;
-	//c1.Ypos = 100;
-	//c1.r = 30;
-	//c1.angle = 0.10;
 	HWND hwnd = GetConsoleWindow();
 	HDC hdc = GetDC(hwnd);
-	std::cout << Sum(arr, sizeof(arr));
-	Reverse(arr, 10);
-	//int  tmp = 0;
-	//int x = 0;
-	//for (float i = 0; i < 3.14 * 10; i += 0.05)
-	//{
-	//	SetPixel(hdc, x, 50 + 25 * cos(i), RGB(255, 255, 255));
-	//	x += 1;
-	//}
+	
+	
 
-	//Circle* pc;
-	//pc = &c1;
-
-	Vec2 startpos = Vec2(150, 150);
-	float r = 50;
-	float alpha = 0;
-	//float delta=0;
-	while (true)
-	{
-		//DrawLine(hdc, startpos, RotateV(startpos,r,alpha));
-		//DrawLine(hdc, Vec2(500, 50),30, 0,0);
-		//DrawSquare(hdc);
-		//DrawSquare(hdc);
-		
-		//RotateSquare(hdc, Vec2(500, 50), 30, 0,alpha, 50);
-		alpha += 0.1;
-		
-			//for (int i = 0; i < 4; i++)
-			//{
-			//	c[i].DrawCircle(hdc);
-			//	c[i].DrawInsideCircle(hdc);
-			//	c[i].Update();
-			//}
-			//sattelite.PlaceCenter(c[3]);
-			//sattelite.DrawCircle(hdc);
-			//sattelite.DrawInsideCircle(hdc);
-			//sattelite.Update();
-		Sleep(100);
-		//system("cls");
-		//delta += 0.30;
-	}
+	
 
 
 
