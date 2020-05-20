@@ -1,68 +1,137 @@
 ﻿#include "Circle.h"
 #include "Vec2.h"
-#include <algorithm>
+
 #include <conio.h>
+#include <fstream>
 
 using namespace std;
 
+class Test
+{public:
+	char name[100] = { 0 };
+	int number;
+};
 int Sum(int* p, int w);
 void Reverse(int* p, int size);
-void Print(char* p);
+void Print(const char* p);
 void read(char* buff, int size);
 int Str2int(char* s);
 int fibon(int n);
 void int2str(int n, char* buff, int size);
+
+void LoadF(const char* pc, Test* t_in, int size);
+void SetName(Test* pt, char* buff_in, int size, int number);
 int main()
 {
+	Test t[100];
+	char msg[] = "(l)oad (s)ave (a)dd (q)uit or (p)rint";
+	char buff[100] = { 0 };
+	char menuswitch = 0;
+	//read(buff, 100);
 	
-
-
-
-
-
-
-
-
-
-	Sleep(100000);
-
-
-
-
-
-
-
-
-
-
-
-
-
-	HWND hwnd = GetConsoleWindow();
-	HDC hdc = GetDC(hwnd);
+	int count = 0;
+	do
 	
+	{
+		Print("(l)oad (s)ave (a)dd (q)uit or (p)rint");
+		switch (menuswitch=_getch())
+		{
+		case 'l':
+		{
+			Print("\nEnter file name: ");
+			read(buff, 100);
+			//LoadF(buff);
+			break;
+		}
+		case 's':
+		{
+			break;
+		}
+		case 'a':
+		{
+			Print("enter name: ");
+			read(buff, 100);
+			SetName(t, buff, 100, count);
+			Print("enter number: ");
+			read(buff, 100);
+			t[count].number = Str2int(buff);
+			count++;
+			break;
+		}
+		case 'q':
+		{
+			Print("Programm is closing");
+			break;
+		}
+		case 'p':
+		{
+			break;
+		}
+		default:
+			break;
+		}
+	} while (menuswitch != 'q');
+
+
+
+
+
+	Print(t[0].name);
 	
-
-	
-
-
-
-	//Sleep(1000);
-	//system("cls");
-	//std::cin.ignore();
-	//DrawCircle(100, 100, 10, hdc);
-	ReleaseDC(hwnd, hdc);
-	//std::cin.ignore();
+	std::cin.ignore();
 	return 0;
 
 
 
 }
 
+void SetName(Test* pt, char* buff_in, int size, int number)
+{
+	pt = pt + number;
+	char* e = buff_in + size;
+	char* tmp = (pt->name);
+	for (; (buff_in < e)&&(*buff_in!=0); buff_in++, tmp++)
+	{
+		*tmp = *buff_in;
+	}
+	*tmp = 0;
+}
+void LoadF(const char* pc, Test* t_in, int size)
+{
+	ifstream inFile(pc);
+	if (!inFile)
+	{
+		Print("error");
+	}
+	else
+	{
+		Test* tmp = t_in + size;
+		for (; (t_in < tmp)&&(!inFile.eof()); t_in++)
+		{
+			inFile.read((char*)t_in, sizeof(Test));
+		}
+	}
+}
+void SaveF(const char* pc, Test* t_in, int size)
+{
+	ofstream inFile(pc);
+	if (!inFile)
+	{
+		Print("error");
+	}
+	else
+	{
+		Test* tmp = t_in + size;
+	//	for (; (t_in < tmp) && ; t_in++)
+	//	{
+	//		inFile.write((char*)t_in, sizeof(Test));
+	//	}
+	}
+}
 
 
 
-void Print(char* p)
+void Print(const char* p)
 {
 	for (; *p != 0; p++)
 	{
