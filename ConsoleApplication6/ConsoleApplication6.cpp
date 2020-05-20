@@ -19,10 +19,12 @@ int Str2int(char* s);
 int fibon(int n);
 void int2str(int n, char* buff, int size);
 void SaveF(const char* pc, Test* t_in, int size, int count);
-void LoadF(const char* pc, Test* t_in, int size);
+void LoadF(const char* pc, Test* t_in, int size, int* n);
 void SetName(Test* pt, char* buff_in, int size, int number);
+void PrintF(Test t_in);
 int main()
 {
+
 	Test t[100];
 	char msg[] = "(l)oad (s)ave (a)dd (q)uit or (p)rint";
 	char buff[100] = { 0 };
@@ -30,6 +32,8 @@ int main()
 	//read(buff, 100);
 	
 	int count = 0;
+	int nc = 0;
+	int* pnc = &nc;
 	do
 	
 	{
@@ -40,7 +44,7 @@ int main()
 		{
 			Print("\nEnter file name: \n");
 			read(buff, 100);
-			LoadF(buff, t, 100);
+			LoadF(buff, t, 100, pnc);
 			break;
 		}
 		case 's':
@@ -51,10 +55,10 @@ int main()
 		}
 		case 'a':
 		{
-			Print("enter name: \n");
+			Print("\nenter name: \n");
 			read(buff, 100);
 			SetName(t, buff, 100, count);
-			Print("enter number: \n");
+			Print("\nenter number: \n");
 			read(buff, 100);
 			t[count].number = Str2int(buff);
 			count++;
@@ -62,11 +66,36 @@ int main()
 		}
 		case 'q':
 		{
-			Print("Programm is closing");
+			Print("\nProgramm is closing");
 			break;
 		}
 		case 'p':
 		{
+			if (count <= 0)
+			{
+				if (nc > 0)
+				{
+					for (int i = 0; i < nc; i++)
+					{
+						PrintF(t[i]);
+					}
+				}
+				else
+				{
+					for (int i = 0; i < count; i++)
+					{
+						PrintF(t[i]);
+					}
+				}
+				
+			}
+			else
+			{
+				for (int i = 0; i < count; i++)
+				{
+					PrintF(t[i]);
+				}
+			}
 			break;
 		}
 		default:
@@ -78,13 +107,24 @@ int main()
 
 
 
-	Print(t[0].name);
+	//Print(t[0].name);
 	
 	std::cin.ignore();
 	return 0;
 
 
 
+}
+void PrintF(Test t_in)
+{
+	Print("\n");
+	Print(t_in.name);
+	Print(" : ");
+	for (int i = 0; i < t_in.number; i++)
+	{
+		Print("=");
+	}
+	
 }
 
 void SetName(Test* pt, char* buff_in, int size, int number)
@@ -98,7 +138,7 @@ void SetName(Test* pt, char* buff_in, int size, int number)
 	}
 	*tmp = 0;
 }
-void LoadF(const char* pc, Test* t_in, int size)
+void LoadF(const char* pc, Test* t_in, int size, int* n)
 {
 	ifstream inFile(pc, ios::binary);
 	if (!inFile)
@@ -108,16 +148,19 @@ void LoadF(const char* pc, Test* t_in, int size)
 	else
 	{
 		Test* tmp = t_in + size;
-		for (; (t_in < tmp)&&(!inFile.eof()); t_in++)
+		while (!inFile.read((char*)t_in, sizeof(Test)).eof())
 		{
-			inFile.read((char*)t_in, sizeof(Test));
+			t_in++;
+			*n=*n+1;
+			//if (inFile.eof()) break;
 		}
 	}
+	inFile.close();
 }
 void SaveF(const char* pc, Test* t_in, int size, int count)
 {
-	ofstream inFile(pc, ios::binary);
-	if (!inFile)
+	ofstream outFile(pc, ios::out | ios::app | ios::binary);
+	if (!outFile)
 	{
 		Print("error");
 	}
@@ -128,12 +171,13 @@ void SaveF(const char* pc, Test* t_in, int size, int count)
 
 		//for (;t_in<tmp;t_in++)
 
-		for (; (t_in < tmp) &&count>=0 ; t_in++)
+		for (; (t_in < tmp) &&count>0 ; t_in++)
 		{
-			inFile.write((char*)t_in, sizeof(Test));
+			outFile.write((char*)t_in, sizeof(Test));
 			count--;
 		}
 	}
+	outFile.close();
 }
 
 
